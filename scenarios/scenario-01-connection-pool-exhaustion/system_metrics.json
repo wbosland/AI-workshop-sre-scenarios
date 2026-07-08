@@ -1,0 +1,202 @@
+{
+  "metrics_summary": {
+    "period_start": "2024-07-08T14:00:00Z",
+    "period_end": "2024-07-08T15:30:00Z",
+    "incident_window": "14:32:15 to 15:17:42"
+  },
+  "database_connections": [
+    {
+      "timestamp": "2024-07-08T14:15:00Z",
+      "active_connections": 24,
+      "idle_connections": 26,
+      "total_pool_size": 50,
+      "utilization_percent": 48,
+      "status": "NORMAL"
+    },
+    {
+      "timestamp": "2024-07-08T14:25:00Z",
+      "active_connections": 35,
+      "idle_connections": 15,
+      "total_pool_size": 50,
+      "utilization_percent": 70,
+      "status": "NORMAL"
+    },
+    {
+      "timestamp": "2024-07-08T14:30:00Z",
+      "active_connections": 41,
+      "idle_connections": 9,
+      "total_pool_size": 50,
+      "utilization_percent": 82,
+      "status": "WARNING",
+      "note": "Campaign launch increases traffic"
+    },
+    {
+      "timestamp": "2024-07-08T14:31:00Z",
+      "active_connections": 46,
+      "idle_connections": 4,
+      "total_pool_size": 50,
+      "utilization_percent": 92,
+      "status": "WARNING"
+    },
+    {
+      "timestamp": "2024-07-08T14:32:00Z",
+      "active_connections": 50,
+      "idle_connections": 0,
+      "total_pool_size": 50,
+      "utilization_percent": 100,
+      "status": "CRITICAL",
+      "waiting_threads": 847,
+      "note": "Pool exhausted - incident begins"
+    },
+    {
+      "timestamp": "2024-07-08T14:35:00Z",
+      "active_connections": 50,
+      "idle_connections": 0,
+      "total_pool_size": 50,
+      "utilization_percent": 100,
+      "status": "CRITICAL",
+      "waiting_threads": 2156,
+      "avg_wait_time_ms": 28500
+    },
+    {
+      "timestamp": "2024-07-08T14:45:00Z",
+      "active_connections": 50,
+      "idle_connections": 0,
+      "total_pool_size": 50,
+      "utilization_percent": 100,
+      "status": "CRITICAL",
+      "waiting_threads": 3401,
+      "note": "Situation worsening, queue growing"
+    },
+    {
+      "timestamp": "2024-07-08T15:10:00Z",
+      "active_connections": 50,
+      "idle_connections": 0,
+      "total_pool_size": 50,
+      "utilization_percent": 100,
+      "status": "CRITICAL",
+      "waiting_threads": 4892,
+      "note": "Rollback decision made"
+    },
+    {
+      "timestamp": "2024-07-08T15:13:00Z",
+      "active_connections": 22,
+      "idle_connections": 28,
+      "total_pool_size": 50,
+      "utilization_percent": 44,
+      "status": "RECOVERING",
+      "note": "v2.4.0 rolled back, connections released"
+    },
+    {
+      "timestamp": "2024-07-08T15:20:00Z",
+      "active_connections": 18,
+      "idle_connections": 32,
+      "total_pool_size": 50,
+      "utilization_percent": 36,
+      "status": "NORMAL"
+    }
+  ],
+  "api_response_times": [
+    {
+      "timestamp": "2024-07-08T14:15:00Z",
+      "p50_ms": 120,
+      "p95_ms": 250,
+      "p99_ms": 450,
+      "avg_ms": 150,
+      "status": "NORMAL"
+    },
+    {
+      "timestamp": "2024-07-08T14:30:00Z",
+      "p50_ms": 180,
+      "p95_ms": 650,
+      "p99_ms": 1200,
+      "avg_ms": 280,
+      "status": "DEGRADED",
+      "note": "Campaign load"
+    },
+    {
+      "timestamp": "2024-07-08T14:32:15Z",
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "avg_ms": null,
+      "error_rate": 1.0,
+      "status": "FAILED",
+      "note": "Service unavailable"
+    },
+    {
+      "timestamp": "2024-07-08T15:13:00Z",
+      "p50_ms": 140,
+      "p95_ms": 280,
+      "p99_ms": 500,
+      "avg_ms": 160,
+      "status": "RECOVERING"
+    }
+  ],
+  "transaction_throughput": [
+    {
+      "timestamp": "2024-07-08T14:15:00Z",
+      "transactions_per_minute": 847,
+      "successful": 845,
+      "failed": 2,
+      "error_rate_percent": 0.024
+    },
+    {
+      "timestamp": "2024-07-08T14:30:00Z",
+      "transactions_per_minute": 1240,
+      "successful": 1237,
+      "failed": 3,
+      "error_rate_percent": 0.024,
+      "note": "Campaign traffic spike"
+    },
+    {
+      "timestamp": "2024-07-08T14:32:15Z",
+      "transactions_per_minute": 0,
+      "successful": 0,
+      "failed": 2847,
+      "error_rate_percent": 100.0,
+      "note": "All transactions failing"
+    },
+    {
+      "timestamp": "2024-07-08T14:45:00Z",
+      "transactions_per_minute": 0,
+      "successful": 0,
+      "failed": 3100,
+      "error_rate_percent": 100.0,
+      "queued_transactions": 8247
+    },
+    {
+      "timestamp": "2024-07-08T15:13:00Z",
+      "transactions_per_minute": 620,
+      "successful": 615,
+      "failed": 5,
+      "error_rate_percent": 0.81,
+      "note": "Service recovering, processing backlog"
+    }
+  ],
+  "database_query_times": [
+    {
+      "timestamp": "2024-07-08T14:15:00Z",
+      "query_type": "INSERT (transaction record)",
+      "avg_time_ms": 45,
+      "p95_ms": 120,
+      "count": 847
+    },
+    {
+      "timestamp": "2024-07-08T14:30:00Z",
+      "query_type": "INSERT (transaction record)",
+      "avg_time_ms": 67,
+      "p95_ms": 280,
+      "count": 1240
+    },
+    {
+      "timestamp": "2024-07-08T14:32:15Z",
+      "query_type": "INSERT (transaction record)",
+      "avg_time_ms": null,
+      "p95_ms": null,
+      "count": 0,
+      "status": "QUEUED",
+      "waiting_for_connection": true
+    }
+  ]
+}

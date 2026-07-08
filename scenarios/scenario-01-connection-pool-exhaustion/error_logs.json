@@ -1,0 +1,109 @@
+{
+  "incident_summary": {
+    "start_time": "2024-07-08T14:32:15Z",
+    "end_time": "2024-07-08T15:17:42Z",
+    "duration_minutes": 45,
+    "total_errors": 8947,
+    "affected_transactions": 2847
+  },
+  "top_errors": [
+    {
+      "rank": 1,
+      "error_type": "ConnectionPoolException",
+      "message": "Cannot get a connection from the pool, all 50 connections are busy",
+      "count": 5634,
+      "first_occurrence": "2024-07-08T14:32:15Z",
+      "percentage": 63.0
+    },
+    {
+      "rank": 2,
+      "error_type": "DatabaseTimeoutException",
+      "message": "Timeout waiting for idle connection from pool after 30000ms",
+      "count": 1923,
+      "first_occurrence": "2024-07-08T14:32:18Z",
+      "percentage": 21.5
+    },
+    {
+      "rank": 3,
+      "error_type": "ServiceUnavailableException",
+      "message": "Payment service temporarily unavailable, please retry",
+      "count": 1156,
+      "first_occurrence": "2024-07-08T14:32:22Z",
+      "percentage": 12.9
+    },
+    {
+      "rank": 4,
+      "error_type": "DeadlockDetectedException",
+      "message": "Database deadlock detected, operation rolled back",
+      "count": 234,
+      "first_occurrence": "2024-07-08T14:35:42Z",
+      "percentage": 2.6
+    }
+  ],
+  "error_timeline": [
+    {
+      "timestamp": "2024-07-08T14:32:15Z",
+      "error_code": "POOL_EXHAUSTED",
+      "service": "PaymentService",
+      "instance": "payment-api-prod-1",
+      "message": "Cannot get a connection from the pool, all 50 connections are busy",
+      "stack_trace": "com.zaxxer.hikari.pool.HikariPool (HikariPool.java:307)\n  at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:128)\n  at payment.service.PaymentProcessor.processTransaction(PaymentProcessor.java:147)"
+    },
+    {
+      "timestamp": "2024-07-08T14:32:18Z",
+      "error_code": "DB_TIMEOUT",
+      "service": "PaymentService",
+      "instance": "payment-api-prod-1",
+      "message": "Timeout waiting for idle connection from pool after 30000ms",
+      "details": {
+        "pool_size": 50,
+        "active_connections": 50,
+        "idle_connections": 0,
+        "pending_requests": 847
+      }
+    },
+    {
+      "timestamp": "2024-07-08T14:32:45Z",
+      "error_code": "POOL_EXHAUSTED",
+      "service": "PaymentService",
+      "instance": "payment-api-prod-2",
+      "message": "Cannot get a connection from the pool, all 50 connections are busy"
+    },
+    {
+      "timestamp": "2024-07-08T14:33:12Z",
+      "error_code": "SERVICE_UNAVAILABLE",
+      "service": "PaymentAPI",
+      "http_status": 503,
+      "message": "All payment service instances unavailable"
+    },
+    {
+      "timestamp": "2024-07-08T14:35:22Z",
+      "error_code": "DEADLOCK",
+      "service": "PaymentService",
+      "instance": "payment-api-prod-3",
+      "message": "Database deadlock detected: Process 124 waiting for ShareLock on transaction (Process 189) blocked by Process 189 waiting for ShareLock on transaction (Process 124)."
+    },
+    {
+      "timestamp": "2024-07-08T14:38:56Z",
+      "error_code": "POOL_EXHAUSTED",
+      "service": "PaymentService",
+      "instance": "payment-api-prod-4",
+      "message": "Cannot get a connection from the pool, all 50 connections are busy"
+    }
+  ],
+  "error_patterns": {
+    "connection_pool_errors": {
+      "description": "Database connection pool exhaustion and timeout errors",
+      "count": 7557,
+      "severity": "CRITICAL",
+      "timespan": "14:32:15 to 15:17:00",
+      "affected_instances": ["payment-api-prod-1", "payment-api-prod-2", "payment-api-prod-3", "payment-api-prod-4"]
+    },
+    "retry_storm": {
+      "description": "Exponential backoff retry logic creating connection spikes",
+      "estimated_retry_attempts": 12400,
+      "pattern": "Retries increased from normal ~200/min to ~400/min starting 14:32"
+    }
+  },
+  "correlation_notes": "Errors coincide with v2.4.1 deployment (13:52) and traffic surge (14:30). Root cause appears to be connection leak in retry logic. See git_diff.md for code changes."
+}
