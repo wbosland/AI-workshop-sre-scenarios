@@ -1,0 +1,198 @@
+{
+  "incident_summary": {
+    "duration_days": 6,
+    "start_time": "2024-07-08T10:30:00Z",
+    "crash_time": "2024-07-14T03:47:00Z",
+    "downtime_minutes": 8,
+    "requests_dropped": 12000,
+    "root_cause": "Unbounded request cache memory leak"
+  },
+  "memory_timeline": [
+    {
+      "day": 1,
+      "timestamp": "2024-07-08T10:45:00Z",
+      "heap_used_gb": 2.0,
+      "heap_committed_gb": 8.0,
+      "heap_max_gb": 8.0,
+      "utilization_percent": 25.0,
+      "gc_pause_time_ms": 50,
+      "gc_frequency_per_min": 0.5,
+      "cache_size_mb": 120,
+      "status": "NORMAL"
+    },
+    {
+      "day": 2,
+      "timestamp": "2024-07-09T06:00:00Z",
+      "heap_used_gb": 2.8,
+      "heap_committed_gb": 8.0,
+      "heap_max_gb": 8.0,
+      "utilization_percent": 35.0,
+      "gc_pause_time_ms": 80,
+      "gc_frequency_per_min": 0.8,
+      "cache_size_mb": 450,
+      "status": "NORMAL",
+      "note": "Slight increase, expected with new caching feature"
+    },
+    {
+      "day": 2,
+      "timestamp": "2024-07-09T18:00:00Z",
+      "heap_used_gb": 3.2,
+      "heap_committed_gb": 8.0,
+      "heap_max_gb": 8.0,
+      "utilization_percent": 40.0,
+      "gc_pause_time_ms": 120,
+      "gc_frequency_per_min": 1.2,
+      "cache_size_mb": 680,
+      "status": "NORMAL"
+    },
+    {
+      "day": 3,
+      "timestamp": "2024-07-10T06:00:00Z",
+      "heap_used_gb": 4.1,
+      "heap_committed_gb": 8.0,
+      "heap_max_gb": 8.0,
+      "utilization_percent": 51.0,
+      "gc_pause_time_ms": 250,
+      "gc_frequency_per_min": 2.1,
+      "cache_size_mb": 1240,
+      "status": "WARNING",
+      "note": "Memory growth accelerating, GC pauses increasing"
+    },
+    {
+      "day": 3,
+      "timestamp": "2024-07-10T14:00:00Z",
+      "heap_used_gb": 4.6,
+      "heap_committed_gb": 8.0,
+      "heap_max_gb": 8.0,
+      "utilization_percent": 57.5,
+      "gc_pause_time_ms": 350,
+      "gc_frequency_per_min": 3.0,
+      "cache_size_mb": 1580,
+      "status": "WARNING"
+    },
+    {
+      "day": 4,
+      "timestamp": "2024-07-11T06:00:00Z",
+      "heap_used_gb": 5.5,
+      "heap_committed_gb": 8.0,
+      "heap_max_gb": 8.0,
+      "utilization_percent": 68.75,
+      "gc_pause_time_ms": 500,
+      "gc_frequency_per_min": 4.2,
+      "cache_size_mb": 2340,
+      "status": "CRITICAL_ALERT",
+      "alert": "GC pause time > 500ms"
+    },
+    {
+      "day": 4,
+      "timestamp": "2024-07-11T16:00:00Z",
+      "heap_used_gb": 2.0,
+      "heap_committed_gb": 12.0,
+      "heap_max_gb": 12.0,
+      "utilization_percent": 16.7,
+      "gc_pause_time_ms": 45,
+      "gc_frequency_per_min": 0.4,
+      "cache_size_mb": 120,
+      "status": "NORMAL",
+      "action": "Restarted with increased heap size (8GB -> 12GB)"
+    },
+    {
+      "day": 5,
+      "timestamp": "2024-07-12T06:00:00Z",
+      "heap_used_gb": 2.1,
+      "heap_committed_gb": 12.0,
+      "heap_max_gb": 12.0,
+      "utilization_percent": 17.5,
+      "gc_pause_time_ms": 40,
+      "gc_frequency_per_min": 0.3,
+      "cache_size_mb": 130,
+      "status": "NORMAL"
+    },
+    {
+      "day": 5,
+      "timestamp": "2024-07-12T14:00:00Z",
+      "heap_used_gb": 6.8,
+      "heap_committed_gb": 12.0,
+      "heap_max_gb": 12.0,
+      "utilization_percent": 56.7,
+      "gc_pause_time_ms": 800,
+      "gc_frequency_per_min": 5.0,
+      "cache_size_mb": 3200,
+      "status": "WARNING",
+      "note": "Growing FASTER than before restart. Leak rate accelerating."
+    },
+    {
+      "day": 5,
+      "timestamp": "2024-07-12T20:00:00Z",
+      "heap_used_gb": 7.8,
+      "heap_committed_gb": 12.0,
+      "heap_max_gb": 12.0,
+      "utilization_percent": 65.0,
+      "gc_pause_time_ms": 1200,
+      "gc_frequency_per_min": 6.5,
+      "cache_size_mb": 4100,
+      "status": "CRITICAL",
+      "action": "Emergency restart triggered"
+    },
+    {
+      "day": 6,
+      "timestamp": "2024-07-14T00:30:00Z",
+      "heap_used_gb": 2.0,
+      "heap_committed_gb": 12.0,
+      "heap_max_gb": 12.0,
+      "utilization_percent": 16.7,
+      "gc_pause_time_ms": 35,
+      "gc_frequency_per_min": 0.2,
+      "cache_size_mb": 115,
+      "status": "NORMAL",
+      "note": "Clean restart"
+    },
+    {
+      "day": 6,
+      "timestamp": "2024-07-14T06:00:00Z",
+      "heap_used_gb": 5.2,
+      "heap_committed_gb": 12.0,
+      "heap_max_gb": 12.0,
+      "utilization_percent": 43.3,
+      "gc_pause_time_ms": 400,
+      "gc_frequency_per_min": 3.5,
+      "cache_size_mb": 2100,
+      "status": "WARNING"
+    },
+    {
+      "day": 6,
+      "timestamp": "2024-07-14T03:47:00Z",
+      "heap_used_gb": 11.8,
+      "heap_committed_gb": 12.0,
+      "heap_max_gb": 12.0,
+      "utilization_percent": 98.3,
+      "gc_pause_time_ms": null,
+      "gc_frequency_per_min": null,
+      "cache_size_mb": 5900,
+      "status": "CRASHED",
+      "error": "java.lang.OutOfMemoryError: Java heap space"
+    }
+  ],
+  "daily_growth_rates": [
+    {
+      "day": "Day 1-2",
+      "memory_growth_gb_per_day": 0.8,
+      "percent_of_start": "40% increase"
+    },
+    {
+      "day": "Day 2-3",
+      "memory_growth_gb_per_day": 1.3,
+      "percent_of_start": "65% increase"
+    },
+    {
+      "day": "Day 3-4",
+      "memory_growth_gb_per_day": 1.4,
+      "percent_of_start": "70% increase"
+    },
+    {
+      "day": "Day 4-5 (after restart)",
+      "memory_growth_gb_per_day": 4.8,
+      "percent_of_start": "FASTER after restart!"
+    }
+  ]
+}
